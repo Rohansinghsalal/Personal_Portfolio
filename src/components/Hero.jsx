@@ -6,6 +6,9 @@ import BackgroundAnimation from './BackgroundAnimation';
 import ParticleBackground from './ParticleBackground';
 import '../styles/Hero.css';
 
+// Default profile image path - this will be included in the Vercel deployment
+const DEFAULT_PROFILE_IMAGE = '/images/profile/default-profile.png';
+
 const Hero = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [linkedInProfileUrl, setLinkedInProfileUrl] = useState('https://www.linkedin.com/in/rohansalal');
@@ -173,22 +176,21 @@ const Hero = () => {
     }
   };
 
-  // Load saved data on component mount
+  // Load profile image from localStorage on component mount
   useEffect(() => {
     const savedImage = localStorage.getItem('profileImage');
-    const savedUrl = localStorage.getItem('linkedInProfileUrl');
-    const savedImageUrl = localStorage.getItem('directImageUrl');
-    
     if (savedImage) {
       setProfileImage(savedImage);
     }
     
-    if (savedUrl) {
-      setLinkedInProfileUrl(savedUrl);
+    const savedLinkedInUrl = localStorage.getItem('linkedInProfileUrl');
+    if (savedLinkedInUrl) {
+      setLinkedInProfileUrl(savedLinkedInUrl);
     }
     
-    if (savedImageUrl) {
-      setDirectImageUrl(savedImageUrl);
+    const savedDirectImageUrl = localStorage.getItem('directImageUrl');
+    if (savedDirectImageUrl) {
+      setDirectImageUrl(savedDirectImageUrl);
     }
   }, []);
 

@@ -24,3 +24,5 @@ dist-ssr
 
 # Keep dist folder for Vercel deployment
 # dist
+
+.vercel
