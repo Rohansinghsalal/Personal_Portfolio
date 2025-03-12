@@ -478,6 +478,15 @@ const Hero = () => {
               </div>
             ) : (
               <div className="profile-placeholder">
+                <img 
+                  src={DEFAULT_PROFILE_IMAGE} 
+                  alt="Rohan Singh Salal" 
+                  className="profile-image"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://ui-avatars.com/api/?name=Rohan+Salal&size=200&background=0D8ABC&color=fff&bold=true';
+                  }} 
+                />
                 <div className="upload-icon">
                   <FaCamera />
                 </div>
