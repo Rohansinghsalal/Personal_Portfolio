@@ -178,14 +178,21 @@ const Hero = () => {
 
   // Load profile image from localStorage on component mount
   useEffect(() => {
-    // For Vercel deployment, always use the default image first
-    // This ensures the image is always available when deployed
+    // Always use the default image first to ensure it's available
+    setProfileImage(DEFAULT_PROFILE_IMAGE);
+    
+    // Then try to load from localStorage if not on Vercel
+    const isVercelDeployment = window.location.hostname.includes('vercel.app');
     const savedImage = localStorage.getItem('profileImage');
-    if (savedImage && window.location.hostname !== 'portfolio-fh1qbt4mc-rohansalals-projects.vercel.app') {
-      setProfileImage(savedImage);
-    } else {
-      // When deployed to Vercel, use the default image
-      setProfileImage(DEFAULT_PROFILE_IMAGE);
+    
+    if (savedImage && !isVercelDeployment) {
+      // Only use localStorage image if not on Vercel deployment
+      const img = new Image();
+      img.onload = () => {
+        // Only set the image if it loads successfully
+        setProfileImage(savedImage);
+      };
+      img.src = savedImage;
     }
     
     const savedLinkedInUrl = localStorage.getItem('linkedInProfileUrl');
